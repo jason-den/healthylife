@@ -14,27 +14,14 @@ import { Goal } from 'types/goal';
 import styles from './home.module.css';
 import { Tile } from '../components/Tile';
 
-const Home = () => {
-  const [goals, setGoals] = useState<Goal[]>([]);
-
-  const fetchGoals: () => Promise<void> = async () => {
-    try {
-      const res = await axios.get('https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=true');
-      setGoals(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    fetchGoals();
-  }, []);
-
+const Home = ({ goals }: { goals: Goal[] }) => {
   return (
     <div>
       <div className="bg-indigo-400 text-center">THE GOALS</div>
       <div className={styles.container}>
+        {goals.length > 0 && <div className="text-white">{goals.length} GOALS TO TRANSFORM OUR WORLD </div>}
         <div className={styles['grid-container'] + ' m-10'}>
-          {goals.map((goal, idx) => (
+          {goals?.map((goal, idx) => (
             <Tile
               className={styles['tile'] + ' ' + colors[Math.floor(Math.random() * colors.length)]}
               goal={goal}
@@ -46,6 +33,18 @@ const Home = () => {
     </div>
   );
 };
+
+export async function getServerSideProps() {
+  let goals: Goal[] = [];
+  try {
+    const res = await axios.get('https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=false');
+    goals = res.data as Goal[];
+  } catch (error) {
+    console.log(error);
+  }
+  return { props: { goals } };
+}
+
 export default Home;
 
 const colors = [
