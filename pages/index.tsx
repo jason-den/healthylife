@@ -26,7 +26,7 @@ const Home = () => {
 
   return (
     <div>
-      <div className="bg-indigo-400">THE GOALS</div>
+      <div className="bg-indigo-400 text-center">THE GOALS</div>
       <div className={styles.container}>hello</div>
     </div>
   );
