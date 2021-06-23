@@ -19,7 +19,7 @@ const Home = ({ goals }: { goals: Goal[] }) => {
     <div>
       <div className="bg-indigo-400 text-center">THE GOALS</div>
       <div className={styles.container}>
-        {goals.length > 0 && <div className="text-white">{goals.length} GOALS TO TRANSFORM OUR WORLD </div>}
+        {goals.length > 0 && <div className="text-white text-xl">{goals.length} GOALS TO TRANSFORM OUR WORLD </div>}
         <div className={styles['grid-container'] + ' m-10'}>
           {goals?.map((goal, idx) => (
             <Tile
