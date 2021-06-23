@@ -6,7 +6,7 @@ interface Target {
   uri: string;
   indicators: any[];
 }
-export interface goal {
+export interface Goal {
   title: string;
   description: string;
   uri: string;

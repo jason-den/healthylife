@@ -5,19 +5,30 @@ https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=true
 
 */
 import axios from 'axios';
-import { useEffect } from 'react';
-
-const tryAPI = async () => {
-  const res = await axios.get('https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=true');
-  console.log(res.data);
-};
+import { useEffect, useState } from 'react';
+import { Goal } from 'types/goal';
+import styles from './home.module.css';
 
 const Home = () => {
+  const [goals, setGoals] = useState([]);
+
+  const fetchGoals: () => Promise<void> = async () => {
+    try {
+      const res = await axios.get('https://unstats.un.org/SDGAPI/v1/sdg/Goal/List?includechildren=true');
+      setGoals(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    tryAPI();
-    console.log('hello world');
+    fetchGoals();
   }, []);
 
-  return <>hello world</>;
+  return (
+    <div>
+      <div className="bg-indigo-400">THE GOALS</div>
+      <div className={styles.container}>hello</div>
+    </div>
+  );
 };
 export default Home;
